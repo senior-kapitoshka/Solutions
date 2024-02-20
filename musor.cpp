@@ -1,3 +1,27 @@
+#if 0
+template<typename T,typename ...Ts>
+void c_out(std::ostream& os,const T&t,const Ts& ...ts){
+  if constexpr(sizeof...(ts)!=0 && std::is_same_v<std::vector<int>,T>){
+    for(auto& i:t) os<<i<<",";
+    os<<'\n';
+    c_out(os,ts...);
+  }
+  else if constexpr(sizeof...(ts)!=0 && std::is_same_v<int,T>){
+    os<<t<<"\n";
+    c_out(os,ts...);
+  }
+}
+
+template<typename ...Ts>
+std::ostream& operator<<(std::ostream& os,const Ts& ...ts){
+  if constexpr(sizeof...(ts)!=0){
+    c_out(os,ts...);
+  }
+}
+#endif
+
+
+
 #include <regex>
 #include <string>
 #include <vector>
