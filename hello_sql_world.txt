@@ -1,0 +1,7 @@
+create table hello
+("Greeting" varchar(12));
+
+insert into hello ("Greeting") values ('hello world!');
+select * from hello
+
+------------------

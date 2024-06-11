@@ -1,0 +1,46 @@
+select case
+when substr(cast(yr as varchar),3,5)='00' then (yr/100)
+else (yr/100)+1
+end
+as 
+century from years
+
+----------------
+SELECT CEILING(yr/100.00) AS Century
+FROM years
+-------------
+select ceil(yr::real / 100) as century from years;
+-------------
+SELECT 
+  CASE (YR % 100)
+  WHEN 0 THEN
+    YR / 100
+  ELSE
+    ( YR / 100 ) + 1
+  END 
+  AS CENTURY  
+FROM YEARS
+---------------
+--your statment goes here--
+SELECT
+  EXTRACT(CENTURY FROM TO_DATE(yr::text, 'YYYY')) AS century
+FROM years;
+-------------
+--your statment goes here--
+SELECT 
+  DATE_PART('century', MAKE_DATE(yr, 1, 1)) AS century
+FROM years;
+------------
+SELECT
+    CAST(
+        LEFT(
+            CAST(
+                DATE_TRUNC(
+                    'century',
+                    TO_TIMESTAMP(CAST(yr AS text), 'YYYY')
+                ) AS text
+            ),
+            2
+        ) AS integer
+    ) + 1 AS century
+FROM years;

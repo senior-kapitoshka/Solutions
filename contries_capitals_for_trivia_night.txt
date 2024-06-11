@@ -1,0 +1,44 @@
+SELECT capital
+FROM countries
+WHERE country LIKE 'E%' AND continent LIKE 'Afr%'
+ORDER BY capital --DESC # <-without descending order!!
+LIMIT 3
+
+--------------
+
+SELECT capital 
+FROM countries 
+WHERE continent IN ('Africa', 'Afrika') 
+  AND country LIKE 'E%' 
+ORDER BY capital 
+LIMIT 3
+
+------------
+
+SELECT capital
+FROM countries
+where continent LIKE 'Afri_a' 
+AND country LIKE 'E%'
+ORDER BY capital ASC
+LIMIT 3;
+
+----------
+SELECT
+  CAPITAL
+FROM COUNTRIES
+WHERE UPPER(CONTINENT) SIMILAR TO 'AFRI(C|K)A'
+  AND COUNTRY ILIKE 'E%'
+ORDER BY CAPITAL
+LIMIT 3
+
+---------
+SELECT
+  capital
+FROM
+  countries
+WHERE
+  country ~ '^E.*'
+ORDER BY
+  capital
+LIMIT
+  3

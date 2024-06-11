@@ -1,0 +1,19 @@
+SELECT *
+FROM books
+ORDER BY copies_sold
+-- without DESC  pass only sample tests
+DESC
+LIMIT 5
+
+------------
+SELECT books.name, 
+       books.author, 
+       books.copies_sold
+FROM books
+ORDER BY books.copies_sold DESC
+LIMIT 5; 
+------------
+SELECT * FROM books
+ORDER BY copies_sold DESC 
+FETCH FIRST 5 ROWS ONLY;
+------------

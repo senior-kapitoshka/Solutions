@@ -1,0 +1,20 @@
+/*  SQL  */
+select (prefix || ' ' || first || ' ' || last || ' ' || suffix) as title
+from names;
+
+-------------------
+SELECT concat_ws(' ', prefix,first,last,suffix) AS title FROM names;
+
+-----------------
+select concat(Prefix,' ',First,' ',Last,' ',Suffix) as title from names
+/*  SQL  */
+--------------
+SELECT format('%s %s %s %s', prefix, first, last, suffix) AS title
+  FROM names
+  -------------
+select
+  array_to_string(array[prefix,first,last,suffix],' ') as title
+from
+  names
+  
+  -----------

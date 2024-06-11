@@ -1,0 +1,21 @@
+SELECT to_hex(arms) AS arms, to_hex(legs) AS legs FROM monsters;
+-----------
+create or replace function hex(number integer)returns varchar(8) language plpgsql as $$
+declare s varchar(8);
+BEGIN
+  s:=substr('0123456789abcdef',1+(number % 16),1);
+  if number>=16 then return concat(hex(number/16),s);end if;
+  return s;
+END
+$$
+;
+select hex(legs) as legs,hex(arms) as arms from monsters
+
+------------------
+CREATE OR REPLACE FUNCTION hex(integer)
+RETURNS text AS $$
+  SELECT pg_catalog.lower(pg_catalog.to_hex($1))
+$$ IMMUTABLE STRICT LANGUAGE SQL;
+
+SELECT hex(legs) as legs , hex(arms) as arms FROM monsters;
+----------

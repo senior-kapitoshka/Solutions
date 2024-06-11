@@ -1,0 +1,9 @@
+select  product_id,
+        ts.quantity as sale_qty,
+        tr.quantity as return_qty,
+        date
+from table_sales ts
+full join table_returns tr using(product_id, date)
+order by product_id, date
+
+-----------------------

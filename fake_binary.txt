@@ -1,0 +1,64 @@
+-- # write your SQL statement here: you are 
+--given a table 'fakebin' with column 'x', 
+--return a table with column 'x' and your result 
+--in a column named 'res'.
+
+select x,
+regexp_replace(regexp_replace(x,'[0-4]','0','g'),'[5-9]','1','g')
+as res
+from fakebin
+
+--------------------
+SELECT x
+	      ,translate(x, '0,1,2,3,4,5,6,7,8,9', '0,0,0,0,0,1,1,1,1,1') AS res
+FROM fakebin;
+-------------------
+
+SELECT x, TRANSLATE(x, '123456789', '000011111') AS res 
+FROM fakebin
+
+----------------
+-- # write your SQL statement here: you are given a table 'fakebin' with column 'x', return a table with column 'x' and your result in a column named 'res'.
+-- at least the formatting is ok
+select x, replace(
+  replace(
+    replace(
+      replace(
+        replace(
+          replace(
+            replace(
+              replace(
+                replace(
+                  replace( x, '4', '0')
+                  ,'3', '0')
+                , '2', '0')
+              , '1', '0')
+            , '0', '0')
+          , '5', '1')
+        , '6', '1')
+      , '7', '1')
+    , '8', '1')
+  , '9', '1') as res
+from fakebin
+
+------------
+CREATE OR REPLACE FUNCTION SUBFUNC_13(textIn1 text) RETURNS text AS $$
+DECLARE
+	 TEXTFNC1 text[] := regexp_split_to_array(textIn1, '');
+	 TEXTFNC2COR text := '';
+	 SM text;
+BEGIN
+	FOREACH SM IN ARRAY TEXTFNC1
+		LOOP
+ 		 if cast(SM as int)<5 THEN
+		  	  textFnc2cor=concat(textFnc2cor,'0');
+		  else
+		  	  textFnc2cor=concat(textFnc2cor,'1');
+		  end if;
+		END LOOP;
+	RETURN TEXTFNC2COR;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+select x, SUBFUNC_13(x) as res from fakebin;

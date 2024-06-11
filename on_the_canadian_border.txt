@@ -1,0 +1,28 @@
+SELECT name,country FROM travelers 
+WHERE country NOT IN ('USA','Mexico','Canada')
+
+-------------------
+SELECT name ,country
+  FROM travelers
+  WHERE country IS NULL
+    OR country NOT IN ('Canada' ,'Mexico' ,'USA')
+
+----------------
+SELECT * FROM travelers
+WHERE country != 'Canada'
+AND country != 'Mexico'
+AND country != 'USA';
+
+----------------
+SELECT travelers.name, travelers.country
+FROM travelers
+WHERE LOWER(travelers.country) not in ('usa', 'mexico', 'canada')
+
+
+---------------
+SELECT
+  name,
+  country
+FROM travelers 
+WHERE country <> ALL(ARRAY['Mexico','Canada','USA']);
+-------------

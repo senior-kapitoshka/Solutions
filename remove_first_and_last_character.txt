@@ -1,0 +1,20 @@
+-- # write your SQL statement here: 
+--you are given a table 'removechar' with column 's', 
+--return a table with column 's' and your result in a 
+--column named 'res'.
+select s, substr(s,2,length(s)-2) as res from removechar
+
+----------------
+
+
+SELECT s, CASE length(s) >= 2
+            WHEN true THEN right(left(s, -1), -1)
+            ELSE s
+          END AS res
+FROM removechar;
+
+--------------
+select s, substring(s from '^.(.*).$') res
+from removechar
+
+-----------

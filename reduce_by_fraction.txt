@@ -1,0 +1,87 @@
+-- # write your SQL statement here: 
+-- you are given a table 'fraction' with columns 
+--'numerator' (int) and 'denominator' (int)
+-- return a query with columns 'numerator', 
+--'denominator', 'reduced_numerator' (int) and 
+--'reduced_denominator' (int)
+-- sort results by column 'numerator' ascending, 
+--then by 'denominator' ascending
+
+select numerator,denominator,
+ (numerator/gcd(numerator,denominator)) as reduced_numerator,
+ (denominator/gcd(numerator,denominator)) as reduced_denominator
+from
+fraction
+order by 
+numerator,
+denominator
+
+
+-------------------
+CREATE or replace FUNCTION gcd(a INT, b INT)
+RETURNS INT AS $$
+BEGIN
+ IF b = 0 THEN
+    RETURN a;
+ ELSE
+    RETURN gcd(b, a % b);
+ END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT 
+ numerator, 
+ denominator, 
+ numerator / gcd(numerator, denominator) AS reduced_numerator, 
+ denominator / gcd(numerator, denominator) AS reduced_denominator
+FROM 
+ fraction
+order by 
+numerator, denominator
+
+
+--------------------
+CREATE OR REPLACE FUNCTION find_gcd(a INTEGER, b INTEGER)
+RETURNS INTEGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    temp INTEGER;
+BEGIN
+    WHILE b != 0 LOOP
+        temp := b;
+        b := a % b;
+        a := temp;
+    END LOOP;
+    
+    RETURN a;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION reduce_fraction(fraction INTEGER[])
+RETURNS INTEGER[]
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    numerator INTEGER;
+    denominator INTEGER;
+    gcd INTEGER;
+    reduced_numerator INTEGER;
+    reduced_denominator INTEGER;
+BEGIN
+    numerator := fraction[1];
+    denominator := fraction[2];
+    
+    gcd := find_gcd(numerator, denominator);
+    
+    reduced_numerator := numerator / gcd;
+    reduced_denominator := denominator / gcd;
+    
+    RETURN ARRAY[reduced_numerator, reduced_denominator];
+END;
+$$;
+
+SELECT numerator, denominator, reduced_fraction[1] AS reduced_numerator, reduced_fraction[2] AS reduced_denominator
+FROM fraction
+CROSS JOIN LATERAL reduce_fraction(ARRAY[numerator, denominator]) AS reduced_fraction
+ORDER BY numerator ASC, denominator ASC;
