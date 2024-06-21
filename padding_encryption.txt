@@ -1,0 +1,37 @@
+--rpad/lpad!!!
+
+select
+    rpad(md5, length(sha256), '1') as md5,
+    lpad(sha1, length(sha256), '0') as sha1,
+sha256 from encryption
+
+-----------------------------------
+
+SELECT 
+  CONCAT(md5, REPEAT('1', (LENGTH(sha256) - LENGTH(md5)))) as md5,
+  CONCAT(REPEAT('0', (LENGTH(sha256) - LENGTH(sha1))), sha1) as sha1,
+  sha256
+FROM encryption
+
+---------------------
+SELECT md5||REPEAT('1', 32) AS md5,
+       REPEAT('0', 24)||sha1 AS sha1,
+       sha256
+FROM encryption
+
+----------------------
+
+select 
+CASE 
+    WHEN (LENGTH(sha256) > LENGTH(md5))
+    THEN  CONCAT(md5 ,REPEAT('1', LENGTH(sha256)-LENGTH(md5)))
+ELSE md5 END as md5,
+
+CASE 
+    WHEN (LENGTH(sha256)>LENGTH(sha1))
+    THEN  CONCAT(REPEAT('0', LENGTH(sha256)-LENGTH(sha1)),sha1 )
+ELSE sha1 END as sha1,
+sha256
+FROM encryption
+
+--------------------

@@ -1,0 +1,15 @@
+/*  SQL  */
+
+--The COUNT() function returns the number of rows that matches a specified criterion.
+
+--
+select race, count(race) 
+as count
+from  demographics 
+--
+group by race 
+order by count desc
+
+
+
+-----------------------------
