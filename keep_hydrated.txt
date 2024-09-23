@@ -1,0 +1,10 @@
+select id,hours,
+--
+floor((hours)/2) as liters 
+--
+from cycling
+
+----------------------------
+select id, hours, floor(0.5*hours) as liters from cycling;
+
+------------------------

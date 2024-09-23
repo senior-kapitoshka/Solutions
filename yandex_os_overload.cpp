@@ -97,6 +97,33 @@ void Print(ostream& out, const ContainerType& c) {
         }
     }
 }
+/////
+#include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <vector>
+#include <type_traits>
+
+template<typename T>
+void Print(T& t,const std::string& s){
+    std::copy(t.begin(),t.end(),
+    std::ostream_iterator<std::decay_t<decltype(*t.begin())>>(std::cout,s.c_str()));
+}
+
+int main() {
+    std::vector<int> data = {1, 2, 3, 4};
+    Print(data, ", ");  // 1, 2, 3, 4
+}
+////
+template <typename Iterator>
+void printContainer(Iterator itBegin,
+                    Iterator itEnd)
+{
+        copy(itBegin, itEnd, ostream_iterator<typename iterator_traits<Iterator>::value_type>(cout, " "));
+        cout << endl;
+}
+
+
 #endif
 template <typename ContainerType>
 void Print(ostream& out, const ContainerType& container); 

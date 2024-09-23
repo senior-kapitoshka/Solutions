@@ -1,0 +1,29 @@
+select trunc(number1 + number2) as towardzero
+  from decimals
+
+-----------------------------
+SELECT CASE 
+          WHEN number1+number2>0 
+             THEN FLOOR(number1+number2)
+          ELSE CEILING(number1+number2)
+       END as towardzero
+FROM decimals;
+
+-------------------
+select case when (sum > 0) then low else high end
+as towardzero from
+
+           (select (number1 + number2) as sum, 
+              floor(number1 + number2) as low,
+               ceil(number1 + number2) as high
+                from decimals) as foo;
+
+---------------------------------
+SELECT 
+TRUNC(towardzero) as towardzero
+FROM(
+  SELECT 
+  number1+number2 as towardzero
+  FROM 
+  decimals
+) d
