@@ -1,3 +1,0 @@
-select first_name,last_name
-from people
-where first_name like '______%'

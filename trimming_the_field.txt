@@ -1,8 +1,0 @@
-/*  SQL  */
-
-select id,name, 
----
-split_part(characteristics, ',', 1) as characteristic
----
-from monsters
-order by id;

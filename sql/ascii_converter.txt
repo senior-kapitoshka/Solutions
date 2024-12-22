@@ -1,0 +1,15 @@
+/*  SQL  */
+select 
+--
+id,
+--
+ascii(substr(name,1,1)) as name,
+--
+birthday,
+--
+ascii(substr(race,1,1)) as race 
+--
+from demographics
+
+
+--------------------------

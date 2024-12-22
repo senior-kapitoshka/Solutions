@@ -1,0 +1,36 @@
+INSERT 
+--Your code here
+INTO participants (name,age,attending)
+VALUES('Kapitoshka',32,True);
+
+SELECT * FROM participants;
+
+
+--------------------
+
+INSERT INTO participants (
+  name,
+  age,
+  attending
+) VALUES (
+  'Donald',
+  21, -- I'm actually only 18 but not gonna let my age get in the way of me partying :p
+  TRUE
+);
+
+SELECT * FROM participants;
+
+----------------
+INSERT INTO participants (name, age)
+VALUES ('Aki', 27);
+
+SELECT 
+  name, 
+  age,
+  (CASE 
+    when age>=21 then 1=1
+    else 1=0
+   END) as attending 
+FROM participants
+
+-----------
