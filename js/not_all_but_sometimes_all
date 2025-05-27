@@ -1,0 +1,21 @@
+function remove(str, what) {
+  return str.split('').map((i)=>{
+    let flag =false;
+    let key=Object.keys(what).find((k)=>k===i);
+    if(key!=undefined && what[key]!==0){
+      --what[key];
+      flag=true;
+      }
+    return flag?'':i;
+    }).join('');
+}
+////////////////
+function remove(str, what) {
+  for(var key in what) for(i=0; i< what[key]; i++) str = str.replace(key, '');
+  return str;
+}
+///////////////////
+function remove(str, what) {
+  return str.replace(/[a-z]/g, c => what[c]-- > 0 ? '' : c)
+}
+//////////////
