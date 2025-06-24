@@ -1,0 +1,9 @@
+array=_=>[...Array(31).keys()].slice(1)
+/////////
+array=_=>[...Array(30)].map((_,i)=>i+1)
+///////
+array=H=(Q=30)=>Q?[...H(Q-1),Q]:[]
+///////
+array=_=>require('lodash').range(1,31)
+/////
+array=(x=0)=>[...Array(30)].map(_=>++x)
