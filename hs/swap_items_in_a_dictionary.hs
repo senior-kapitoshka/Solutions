@@ -34,8 +34,8 @@ swapDict d = M.fromListWith (++) xs
     xs = [(b,[a]) | (a,b) <- M.toList d]
 
 
-    ----
-    module SwapDict where
+----
+module SwapDict where
 
 import qualified Data.Map.Strict as M
 
